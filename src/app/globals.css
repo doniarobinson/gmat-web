@@ -1,0 +1,57 @@
+@import "tailwindcss";
+
+:root {
+  color-scheme: dark;
+  --bg: 11 18 32;
+  --surface: 15 26 46;
+  --surface2: 17 31 56;
+  --border: 28 42 68;
+  --text: 234 240 255;
+  --text-muted: 169 180 204;
+  --text-faint: 127 138 163;
+
+  --primary: 59 130 246;
+  --primary-hover: 37 99 235;
+  --focus-ring: 96 165 250;
+
+  --quant: 20 184 166;
+  --verbal: 139 92 246;
+  --di: 245 158 11;
+
+  --success: 34 197 94;
+  --warning: 245 158 11;
+  --danger: 239 68 68;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background: rgb(var(--bg));
+  color: rgb(var(--text));
+  font-feature-settings: "ss01" 1, "ss02" 1;
+  font-variant-numeric: tabular-nums;
+}
+
+* {
+  border-color: rgb(var(--border));
+}
+
+.surface {
+  background: rgb(var(--surface));
+}
+
+.surface2 {
+  background: rgb(var(--surface2));
+}
+
+.text-muted {
+  color: rgb(var(--text-muted));
+}
+
+.text-faint {
+  color: rgb(var(--text-faint));
+}
+
