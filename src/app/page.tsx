@@ -32,8 +32,8 @@ export default function Home() {
             </h1>
             <p className="mt-3 max-w-[70ch] text-muted">
               Take a short baseline mini-exam, then follow a personalized plan.
-              Questions are generated on-demand per session and include optional
-              guided help.
+              Questions are generated on-demand per session; review solutions and
+              the tested concept after you submit.
             </p>
           </div>
           <Link
@@ -57,20 +57,11 @@ export default function Home() {
           />
           <Card
             title="Practice"
-            description="On-demand questions • hint ladder"
+            description="On-demand questions • solutions & review"
             href="/practice"
           />
-        </div>
-
-        <div className="mt-10 rounded-[14px] border p-5 surface">
-          <div className="text-sm font-semibold">Design direction</div>
-          <div className="mt-1 text-sm text-muted">
-            Premium fintech aesthetic with professional section color accents:
-            Quant (teal), Verbal (violet), Data Insights (amber).
-          </div>
         </div>
       </div>
     </main>
   );
 }
-
