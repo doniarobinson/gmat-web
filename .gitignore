@@ -1,0 +1,28 @@
+.DS_Store
+
+# Node / Next
+node_modules/
+.next/
+out/
+dist/
+.turbo/
+.vercel/
+*.log
+
+# Env / secrets
+.env
+.env.*
+
+# Editors
+.vscode/
+.idea/
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# Local tooling folders used during setup
+.home/
+
+node_modules
