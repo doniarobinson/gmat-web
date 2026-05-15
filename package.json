@@ -1,6 +1,7 @@
 {
   "name": "gmat-web",
   "private": true,
+  "license": "Apache-2.0",
   "dependencies": {
     "next": "^16.2.4",
     "react": "^19.2.5",

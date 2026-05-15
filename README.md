@@ -60,3 +60,7 @@ UI conventions: `[docs/UI_STYLE_GUIDE.md](docs/UI_STYLE_GUIDE.md)`.
 ## Status
 
 This repo is an **MVP scaffold** aligned with the spec above: core routes and on-demand question generation are in place; some flows (e.g. full adaptive plan engine, checkpoint reassessments) are described in the spec and may be partial or evolving.
+
+## License
+
+Licensed under the [Apache License, Version 2.0](LICENSE). See [LICENSE](LICENSE) for the full text.
