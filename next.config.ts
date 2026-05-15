@@ -1,24 +1,18 @@
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import type { NextConfig } from "next";
+
+const appDir = path.dirname(fileURLToPath(import.meta.url));
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
-  // Keep Turbopack happy in Next 16 when a custom webpack config exists.
-  turbopack: {},
-  webpack: (config) => {
-    // Prevent watchpack from attempting to watch huge folders in dev.
-    // This reduces EMFILE (too many open files) issues on macOS.
-    config.watchOptions = {
-      ...(config.watchOptions ?? {}),
-      ignored: [
-        "**/.git/**",
-        "**/.next/**",
-        "**/node_modules/**",
-        "**/.venv/**",
-      ],
-    };
-    return config;
+  // Do not set turbopack.root to appDir — that triggers a Next 16 bug where bare
+  // CSS @import resolves from the parent folder (e.g. cursor/apps/) instead of here.
+  turbopack: {
+    resolveAlias: {
+      tailwindcss: path.join(appDir, "node_modules/tailwindcss/index.css"),
+    },
   },
 };
 
 export default nextConfig;
-

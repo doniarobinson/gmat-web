@@ -24,3 +24,5 @@ __pycache__/
 
 # Local tooling folders used during setup
 .home/
+
+.tmp/
