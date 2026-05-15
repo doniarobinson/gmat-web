@@ -26,3 +26,6 @@ __pycache__/
 .home/
 
 .tmp/
+
+# Local planning (not shared)
+docs/ROADMAP.local.md
