@@ -117,7 +117,7 @@ export default function BaselinePage() {
           <div className="text-sm font-semibold">How it works</div>
           <ul className="mt-3 space-y-2 text-sm text-muted">
             <li>• Questions are generated on-demand and stored for review.</li>
-            <li>• After each question, you’ll see optional guided help.</li>
+            <li>• After you submit, review the solution and reveal “Tested concept” if you want.</li>
             <li>• “Tested concept” is always available, hidden by default.</li>
           </ul>
         </Card>

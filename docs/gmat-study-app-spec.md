@@ -24,6 +24,14 @@ A web app that helps users study for the **GMAT Focus** (Quant, Verbal, Data Ins
 - **Checkpoint loop**
   - Every 1–2 weeks: short reassessment quiz → plan updates
 
+## Hint ladder (planned; not in current UI)
+The shipped practice screen does **not** expose progressive hints yet; `Attempt.hintsUsed` in the data model is reserved for baseline analytics and future UI.
+
+**Target behavior (product):**
+- After starting an attempt, the user can optionally open a **hint ladder**: small nudge → broader strategy → stronger steer, **without** revealing the correct letter/choice until submit (unless a later tier explicitly does, per question design).
+- Each tier revealed increments `hintsUsed`; enforce a **per-question cap** so the ladder cannot be infinitely long.
+- Baseline and practice alike record `hintsUsed` for speed-vs-accuracy and “needed help” signals.
+
 ## Question generation (no admin UI)
 - **On-demand generation** driven by `QuestionSpec`:
   - Inputs: user skill estimates, plan needs, desired section/type/topic/difficulty

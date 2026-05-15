@@ -12,7 +12,7 @@ The app helps test-takers prepare for the **GMAT Focus** exam (Quant, Verbal, an
 2. **Baseline mini-exam** — 30-question diagnostic (10 per section) to estimate strengths, weak topics, and speed vs. accuracy.
 3. **Results** — Section and topic breakdown after the baseline.
 4. **Study plan** — Weekly view and a “today” queue of drills, review, and timed work (planned in the product spec; UI routes exist for plan and practice).
-5. **Guided practice** — On-demand questions from structured specs, with optional hints, solutions, and a “tested concept” you can reveal after attempting.
+5. **Guided practice** — On-demand questions from structured specs, with solutions and a “tested concept” you can reveal after attempting. (Progressive hints are described in the product spec for a later release.)
 
 Question content is meant to be **generated per session** (Quant templates, Verbal prompts, Data Insights datasets) and validated for a single correct answer before you see it. Served questions can be stored locally for review and redo (see `src/lib/storage.ts`, `src/lib/generate.ts`).
 

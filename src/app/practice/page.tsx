@@ -46,7 +46,6 @@ function PracticeInner() {
   const [question, setQuestion] = useState<GeneratedQuestion | null>(null);
   const [selected, setSelected] = useState<number | null>(null);
   const [submitted, setSubmitted] = useState(false);
-  const [hintsUsed, setHintsUsed] = useState(0);
   const [testedShown, setTestedShown] = useState(!testedHiddenDefault);
   const [confidence, setConfidence] = useState<Attempt["confidence"]>(null);
   const [errorType, setErrorType] = useState<Attempt["errorType"]>(null);
@@ -105,7 +104,7 @@ function PracticeInner() {
           selectedIndex: selected,
           correct,
           timeMs,
-          hintsUsed,
+          hintsUsed: 0,
           testedConceptShown: testedShown,
           confidence,
           errorType,
@@ -190,7 +189,12 @@ function PracticeInner() {
               })}
             </div>
 
-            <div className="mt-5 flex items-center justify-between gap-3">
+            <div
+              className={cx(
+                "mt-5 flex items-center gap-3",
+                submitted ? "justify-between" : "",
+              )}
+            >
               {!submitted ? (
                 <>
                   <Button
@@ -200,12 +204,6 @@ function PracticeInner() {
                   >
                     Submit
                   </Button>
-                  <button
-                    className="text-sm text-muted hover:text-white"
-                    onClick={() => setHintsUsed((n) => n + 1)}
-                  >
-                    Need a hint? (+1)
-                  </button>
                 </>
               ) : (
                 <>
@@ -226,21 +224,23 @@ function PracticeInner() {
             </div>
 
             <div className="mt-6 border-t pt-4">
-              <button
-                className="flex w-full items-center justify-between rounded-xl border px-3 py-2 text-sm hover:bg-white/5"
-                onClick={() => setTestedShown((s) => !s)}
-              >
-                <div className="font-semibold">Tested concept</div>
-                <div className="text-muted">{testedShown ? "Hide" : "Show"}</div>
-              </button>
-              {testedShown ? (
-                <div className="mt-3 rounded-xl border px-3 py-3 text-sm">
-                  <div className="text-muted">Label</div>
-                  <div className="mt-1 font-semibold">{question.testedConceptLabel}</div>
-                </div>
-              ) : null}
+              <div className="overflow-hidden rounded-xl border text-sm">
+                <button
+                  type="button"
+                  className="flex w-full items-center justify-between px-3 py-2 hover:bg-white/5"
+                  onClick={() => setTestedShown((s) => !s)}
+                  aria-expanded={testedShown}
+                >
+                  <div className="font-semibold">Tested concept</div>
+                  <div className="text-muted">{testedShown ? "Hide" : "Show"}</div>
+                </button>
+                {testedShown ? (
+                  <div className="border-t px-3 py-3 font-semibold leading-6">
+                    {question.testedConceptLabel}
+                  </div>
+                ) : null}
+              </div>
             </div>
-
             {submitted ? (
               <div className="mt-6 border-t pt-4">
                 <div className="text-sm font-semibold">Solution</div>
@@ -310,9 +310,6 @@ function PracticeInner() {
             </div>
           </div>
 
-          <div className="mt-6 border-t pt-4 text-sm text-muted">
-            Hints used this question: <span className="text-white">{hintsUsed}</span>
-          </div>
         </Card>
       </div>
     </Shell>
