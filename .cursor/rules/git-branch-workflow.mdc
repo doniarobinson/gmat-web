@@ -1,0 +1,20 @@
+---
+description: Use feature branches named next-feature-<unix_timestamp>; never push to main directly.
+alwaysApply: true
+---
+
+# Git branch workflow
+
+- **Do not commit or push directly to `main`.** All changes go on a feature branch.
+- **Before pushing**, create and use a new branch:
+  - Name: `next-feature-<unix_timestamp>`
+  - Timestamp: current Unix time in seconds, e.g. `date +%s` → `next-feature-1778871807`
+- **Starting new work** (from updated `main`):
+  ```bash
+  git checkout main
+  git pull origin main
+  git checkout -b next-feature-$(date +%s)
+  ```
+- **Push the feature branch only:** `git push -u origin next-feature-<unix_timestamp>`
+- Merge to `main` via pull request on GitHub, not by pushing to `main` locally.
+- If GitHub rejects the push (GH007 private email), amend author and committer to `13205473+doniarobinson@users.noreply.github.com` before retrying.
