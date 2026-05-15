@@ -1,5 +1,5 @@
 {
-  "name": "gmat-premium",
+  "name": "gmat-web",
   "private": true,
   "dependencies": {
     "next": "^16.2.4",
