@@ -51,7 +51,8 @@ export default function Home() {
           <p className="mt-3 max-w-[70ch] text-muted">
             Start with a short baseline mini-exam to see where you stand.
             You&apos;ll get a personalized study plan, then practice with fresh
-            questions each session. After every answer, review the full solution.
+            questions each session. After every answer, review the full
+            solution.
           </p>
         </div>
 
