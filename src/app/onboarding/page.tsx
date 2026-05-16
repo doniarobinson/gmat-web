@@ -1,7 +1,15 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { Button, Card, Input, Select, Shell, TopNav } from "@/components/ui";
+import {
+  Button,
+  Card,
+  Input,
+  Select,
+  Shell,
+  Toggle,
+  TopNav,
+} from "@/components/ui";
 import { loadProfile, saveProfile } from "@/lib/storage";
 import type { UserProfile } from "@/lib/types";
 import { useRouter } from "next/navigation";
@@ -22,7 +30,9 @@ function defaultProfile(): UserProfile {
 export default function OnboardingPage() {
   const router = useRouter();
   const existing = useMemo(() => loadProfile(), []);
-  const [profile, setProfile] = useState<UserProfile>(existing ?? defaultProfile());
+  const [profile, setProfile] = useState<UserProfile>(
+    existing ?? defaultProfile(),
+  );
 
   return (
     <Shell>
@@ -57,7 +67,10 @@ export default function OnboardingPage() {
                 max={180}
                 value={profile.minutesPerDay}
                 onChange={(e) =>
-                  setProfile((p) => ({ ...p, minutesPerDay: Number(e.target.value) }))
+                  setProfile((p) => ({
+                    ...p,
+                    minutesPerDay: Number(e.target.value),
+                  }))
                 }
               />
             </label>
@@ -66,7 +79,10 @@ export default function OnboardingPage() {
               <Select
                 value={profile.daysPerWeek}
                 onChange={(e) =>
-                  setProfile((p) => ({ ...p, daysPerWeek: Number(e.target.value) }))
+                  setProfile((p) => ({
+                    ...p,
+                    daysPerWeek: Number(e.target.value),
+                  }))
                 }
               >
                 {[3, 4, 5, 6, 7].map((d) => (
@@ -118,23 +134,24 @@ export default function OnboardingPage() {
           <div className="mt-5 border-t pt-4">
             <div className="text-sm font-semibold">Guidance preferences</div>
             <div className="mt-3 flex items-center justify-between gap-4">
-              <div>
-                <div className="text-sm">Hide “tested concept” by default</div>
-                <div className="text-sm text-muted">
-                  You can reveal it per question.
+              <div className="min-w-0 flex-1">
+                <div className="text-sm font-medium text-white">
+                  Hide “tested concept” by default
                 </div>
+                <p className="mt-1 text-sm text-muted">
+                  You can reveal it per question.
+                </p>
               </div>
-              <button
-                className="rounded-full border px-3 py-1 text-sm hover:bg-white/5"
-                onClick={() =>
+              <Toggle
+                checked={profile.ui.testedConceptDefaultHidden}
+                aria-label='Hide "tested concept" by default'
+                onChange={(hidden) =>
                   setProfile((p) => ({
                     ...p,
-                    ui: { ...p.ui, testedConceptDefaultHidden: !p.ui.testedConceptDefaultHidden },
+                    ui: { ...p.ui, testedConceptDefaultHidden: hidden },
                   }))
                 }
-              >
-                {profile.ui.testedConceptDefaultHidden ? "On" : "Off"}
-              </button>
+              />
             </div>
           </div>
         </Card>
@@ -153,4 +170,3 @@ export default function OnboardingPage() {
     </Shell>
   );
 }
-
