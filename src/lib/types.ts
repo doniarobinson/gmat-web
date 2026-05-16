@@ -54,7 +54,7 @@ export type Attempt = {
     | null;
 };
 
-export type BaselineSession = {
+export type AssessmentSession = {
   id: string;
   startedAt: number;
   finishedAt: number | null;

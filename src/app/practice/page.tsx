@@ -8,10 +8,10 @@ import { Card } from "@/components/Card";
 import { Button, Shell, cx } from "@/components/Atoms";
 import { generateQuestion } from "@/lib/generate";
 import {
-  loadBaseline,
+  loadAssessment,
   loadProfile,
   loadQuestions,
-  saveBaseline,
+  saveAssessment,
   upsertQuestion,
 } from "@/lib/storage";
 import type { Attempt, GeneratedQuestion } from "@/lib/types";
@@ -52,10 +52,10 @@ function PracticeInner() {
   useEffect(() => {
     startRef.current = Date.now();
     const all = loadQuestions();
-    if (mode === "baseline") {
-      const baseline = loadBaseline();
+    if (mode === "assessment") {
+      const assessment = loadAssessment();
       const idx = idxParam ? Number(idxParam) : 0;
-      const qid = baseline?.questionIds?.[idx];
+      const qid = assessment?.questionIds?.[idx];
       if (qid && all[qid]) {
         setQuestion(all[qid]!);
         return;
@@ -88,12 +88,12 @@ function PracticeInner() {
     const correct = selected === question.correctIndex;
     setSubmitted(true);
 
-    // persist attempt in baseline mode
-    if (mode === "baseline") {
-      const baseline = loadBaseline();
-      if (baseline) {
+    // persist attempt in assessment mode
+    if (mode === "assessment") {
+      const assessment = loadAssessment();
+      if (assessment) {
         const timeMs = Date.now() - startRef.current;
-        baseline.attempts[question.id] = {
+        assessment.attempts[question.id] = {
           questionId: question.id,
           answeredAt: Date.now(),
           selectedIndex: selected,
@@ -104,31 +104,31 @@ function PracticeInner() {
           confidence,
           errorType,
         };
-        saveBaseline(baseline);
+        saveAssessment(assessment);
       }
     }
   }
 
-  function nextBaseline() {
-    const baseline = loadBaseline();
-    if (!baseline) return router.push("/baseline");
-    const done = Object.keys(baseline.attempts).length;
-    if (done >= baseline.questionIds.length) {
-      baseline.finishedAt = Date.now();
-      saveBaseline(baseline);
+  function nextAssessment() {
+    const assessment = loadAssessment();
+    if (!assessment) return router.push("/assessment");
+    const done = Object.keys(assessment.attempts).length;
+    if (done >= assessment.questionIds.length) {
+      assessment.finishedAt = Date.now();
+      saveAssessment(assessment);
       router.push("/results");
       return;
     }
-    router.push(`/practice?mode=baseline&idx=${done}`);
+    router.push(`/practice?mode=assessment&idx=${done}`);
   }
 
   return (
     <Shell>
       <TopNav
-        title={mode === "baseline" ? "Baseline — Question" : "Practice"}
+        title={mode === "assessment" ? "Assessment — Question" : "Practice"}
         right={
-          mode === "baseline" ? (
-            <Button variant="secondary" onClick={() => router.push("/baseline")}>
+          mode === "assessment" ? (
+            <Button variant="secondary" onClick={() => router.push("/assessment")}>
               Back
             </Button>
           ) : (
@@ -149,8 +149,8 @@ function PracticeInner() {
           onToggleTestedShown={() => setTestedShown((s) => !s)}
           onSubmit={onSubmit}
           afterSubmitAction={
-            mode === "baseline" ? (
-              <Button onClick={nextBaseline}>Next</Button>
+            mode === "assessment" ? (
+              <Button onClick={nextAssessment}>Next</Button>
             ) : (
               <Button
                 onClick={() => {

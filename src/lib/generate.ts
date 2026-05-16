@@ -234,7 +234,7 @@ function generateDI(input: Spec & { rng: () => number; difficulty: Difficulty })
   };
 }
 
-export function baselineBlueprint(): Array<Spec> {
+export function assessmentBlueprint(): Array<Spec> {
   const seedBase = Math.floor(Date.now() / 1000);
   const specs: Spec[] = [];
 

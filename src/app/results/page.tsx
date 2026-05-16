@@ -5,7 +5,7 @@ import Link from "next/link";
 import { TopNav } from "@/components/TopNav";
 import { Card } from "@/components/Card";
 import { Button, Shell } from "@/components/Atoms";
-import { loadBaseline, loadQuestions } from "@/lib/storage";
+import { loadAssessment, loadQuestions } from "@/lib/storage";
 import type { GeneratedQuestion, Section } from "@/lib/types";
 
 function scoreSection(
@@ -26,17 +26,17 @@ function scoreSection(
 }
 
 export default function ResultsPage() {
-  const baseline = useMemo(() => loadBaseline(), []);
+  const assessment = useMemo(() => loadAssessment(), []);
   const questions = useMemo(() => loadQuestions(), []);
 
-  if (!baseline || baseline.questionIds.length === 0) {
+  if (!assessment || assessment.questionIds.length === 0) {
     return (
       <Shell>
         <TopNav title="Results" />
         <div className="mt-6 text-sm text-muted">
-          No baseline found. Start with the{" "}
-          <Link className="text-white underline" href="/baseline">
-            baseline mini-exam
+          No assessment found. Start with the{" "}
+          <Link className="text-white underline" href="/assessment">
+            assessment
           </Link>
           .
         </div>
@@ -44,7 +44,7 @@ export default function ResultsPage() {
     );
   }
 
-  const attempts = baseline.attempts;
+  const attempts = assessment.attempts;
   const quant = scoreSection("Quant", questions, attempts);
   const verbal = scoreSection("Verbal", questions, attempts);
   const di = scoreSection("DataInsights", questions, attempts);
@@ -52,7 +52,7 @@ export default function ResultsPage() {
   return (
     <Shell>
       <TopNav
-        title="Baseline results"
+        title="Assessment results"
         right={
           <Link href="/plan">
             <Button>Generate study plan</Button>
@@ -132,13 +132,13 @@ export default function ResultsPage() {
         </Card>
 
         <Card>
-          <div className="text-sm font-semibold">Review baseline questions</div>
+          <div className="text-sm font-semibold">Review assessment questions</div>
           <div className="mt-2 text-sm text-muted">
-            Continue the baseline or redo missed questions (coming next).
+            Continue the assessment or redo missed questions (coming next).
           </div>
           <div className="mt-4">
-            <Link href="/baseline">
-              <Button variant="secondary">Back to baseline</Button>
+            <Link href="/assessment">
+              <Button variant="secondary">Back to assessment</Button>
             </Link>
           </div>
         </Card>
