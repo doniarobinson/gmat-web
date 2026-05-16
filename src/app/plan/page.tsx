@@ -38,7 +38,9 @@ export default function PlanPage() {
             <div className="flex items-center justify-between rounded-xl border px-3 py-2">
               <div>
                 <div className="font-semibold">Targeted drills</div>
-                <div className="text-muted">Quant fundamentals + DI percent work</div>
+                <div className="text-muted">
+                  Quant fundamentals + DI percent work
+                </div>
               </div>
               <div className="text-muted">~40%</div>
             </div>
@@ -69,8 +71,8 @@ export default function PlanPage() {
         <Card>
           <div className="text-sm font-semibold">Today’s queue (example)</div>
           <div className="mt-2 text-sm text-muted">
-            This will become fully personalized once we compute topic mastery from
-            baseline attempts.
+            This will become fully personalized once we compute topic mastery
+            from assessment attempts.
           </div>
           <div className="mt-4 space-y-2 text-sm">
             <div className="rounded-xl border px-3 py-2">
@@ -83,7 +85,9 @@ export default function PlanPage() {
             </div>
             <div className="rounded-xl border px-3 py-2">
               <div className="text-muted">Data Insights • 8 min</div>
-              <div className="font-semibold">Percent-of-total table questions</div>
+              <div className="font-semibold">
+                Percent-of-total table questions
+              </div>
             </div>
           </div>
           <div className="mt-4">
@@ -96,4 +100,3 @@ export default function PlanPage() {
     </Shell>
   );
 }
-

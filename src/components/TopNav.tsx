@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { DesktopMenuBar, MobileMenu } from "@/components/AppMenu";
 
 export function TopNav({
   title,
@@ -8,14 +8,27 @@ export function TopNav({
   right?: React.ReactNode;
 }) {
   return (
-    <div className="flex items-center justify-between gap-4">
-      <div>
-        <Link href="/" className="text-sm text-muted hover:text-white">
-          ← Home
-        </Link>
-        <div className="mt-2 text-2xl font-semibold tracking-tight">{title}</div>
+    <header className="space-y-3">
+      <div className="flex items-center justify-between gap-3 md:hidden">
+        <h1 className="min-w-0 flex-1 text-2xl font-semibold tracking-tight">
+          {title}
+        </h1>
+        <MobileMenu />
       </div>
-      {right}
-    </div>
+
+      <div className="hidden w-full md:block">
+        <DesktopMenuBar />
+      </div>
+
+      <h1 className="hidden w-full text-2xl font-semibold tracking-tight md:block">
+        {title}
+      </h1>
+
+      {right ? (
+        <div className="flex w-full flex-wrap items-center justify-end gap-2">
+          {right}
+        </div>
+      ) : null}
+    </header>
   );
 }

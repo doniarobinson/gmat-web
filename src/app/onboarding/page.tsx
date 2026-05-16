@@ -2,8 +2,8 @@
 
 import { useMemo, useState } from "react";
 import { Card } from "@/components/Card";
+import { HomeHeader } from "@/components/HomeHeader";
 import { Button, Input, Select, Shell, Toggle } from "@/components/Atoms";
-import { TopNav } from "@/components/TopNav";
 import { loadProfile, saveProfile } from "@/lib/storage";
 import type { UserProfile } from "@/lib/types";
 import { useRouter } from "next/navigation";
@@ -30,22 +30,21 @@ export default function OnboardingPage() {
 
   return (
     <Shell>
-      <TopNav
-        title="Onboarding"
-        right={
-          <Button
-            variant="secondary"
-            onClick={() => {
-              saveProfile(profile);
-              router.push("/baseline");
-            }}
-          >
-            Save & start baseline
-          </Button>
-        }
-      />
+      <HomeHeader />
+      <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
+        <h1 className="text-3xl font-semibold tracking-tight">Onboarding</h1>
+        <Button
+          className="shrink-0"
+          onClick={() => {
+            saveProfile(profile);
+            router.push("/assessment");
+          }}
+        >
+          Save & start assessment
+        </Button>
+      </div>
 
-      <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2">
+      <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2">
         <Card>
           <div className="text-sm font-semibold">Study schedule</div>
           <div className="mt-1 text-sm text-muted">
@@ -155,10 +154,10 @@ export default function OnboardingPage() {
         <Button
           onClick={() => {
             saveProfile(profile);
-            router.push("/baseline");
+            router.push("/assessment");
           }}
         >
-          Continue to baseline
+          Save & start assessment
         </Button>
       </div>
     </Shell>

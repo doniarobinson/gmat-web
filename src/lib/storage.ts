@@ -1,10 +1,13 @@
-import type { BaselineSession, GeneratedQuestion, UserProfile } from "@/lib/types";
+import type { AssessmentSession, GeneratedQuestion, UserProfile } from "@/lib/types";
 
 const KEY = {
   profile: "gmat:profile:v1",
   questions: "gmat:questions:v1",
-  baseline: "gmat:baseline:v1",
+  assessment: "gmat:assessment:v1",
 };
+
+/** @deprecated migrated to KEY.assessment on read */
+const LEGACY_KEY_ASSESSMENT = "gmat:baseline:v1";
 
 function safeJsonParse<T>(raw: string | null): T | null {
   if (!raw) return null;
@@ -47,20 +50,29 @@ export function upsertQuestion(q: GeneratedQuestion) {
   saveQuestions(map);
 }
 
-export function loadBaseline(): BaselineSession | null {
+export function loadAssessment(): AssessmentSession | null {
   if (!isBrowser()) return null;
-  return safeJsonParse<BaselineSession>(localStorage.getItem(KEY.baseline));
+  let raw = localStorage.getItem(KEY.assessment);
+  if (!raw) {
+    const legacy = localStorage.getItem(LEGACY_KEY_ASSESSMENT);
+    if (legacy) {
+      localStorage.setItem(KEY.assessment, legacy);
+      localStorage.removeItem(LEGACY_KEY_ASSESSMENT);
+      raw = legacy;
+    }
+  }
+  return safeJsonParse<AssessmentSession>(raw);
 }
 
-export function saveBaseline(session: BaselineSession) {
+export function saveAssessment(session: AssessmentSession) {
   if (!isBrowser()) return;
-  localStorage.setItem(KEY.baseline, JSON.stringify(session));
+  localStorage.setItem(KEY.assessment, JSON.stringify(session));
 }
 
 export function resetAll() {
   if (!isBrowser()) return;
   localStorage.removeItem(KEY.profile);
   localStorage.removeItem(KEY.questions);
-  localStorage.removeItem(KEY.baseline);
+  localStorage.removeItem(KEY.assessment);
+  localStorage.removeItem(LEGACY_KEY_ASSESSMENT);
 }
-
