@@ -4,6 +4,8 @@ A **GMAT Focus** study web app: run a short **baseline diagnostic**, see where y
 
 Built with **Next.js** (App Router).
 
+**Live app:** [https://gmat-web.vercel.app/](https://gmat-web.vercel.app/) — deployed on [Vercel](https://vercel.com) from `main`.
+
 ## What it does
 
 The app helps test-takers prepare for the **GMAT Focus** exam (Quant, Verbal, and Data Insights) with a clear path from diagnosis to daily practice—not a static question bank.

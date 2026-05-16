@@ -3,17 +3,18 @@
 
 :root {
   color-scheme: dark;
-  --bg: 11 18 32;
-  --surface: 15 26 46;
-  --surface2: 17 31 56;
-  --border: 28 42 68;
-  --text: 234 240 255;
-  --text-muted: 169 180 204;
-  --text-faint: 127 138 163;
+  /* Edge definition + deep page (option 3a) */
+  --bg: 14 20 32;
+  --surface: 28 40 62;
+  --surface2: 36 50 76;
+  --border: 68 88 128;
+  --text: 248 250 255;
+  --text-muted: 198 208 228;
+  --text-faint: 158 170 198;
 
-  --primary: 59 130 246;
-  --primary-hover: 37 99 235;
-  --focus-ring: 96 165 250;
+  --primary: 71 140 255;
+  --primary-hover: 55 118 232;
+  --focus-ring: 120 178 255;
 
   --quant: 20 184 166;
   --verbal: 139 92 246;
