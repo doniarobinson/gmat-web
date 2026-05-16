@@ -2,7 +2,9 @@
 
 import { useMemo } from "react";
 import Link from "next/link";
-import { Button, Card, Shell, TopNav } from "@/components/ui";
+import { TopNav } from "@/components/TopNav";
+import { Card } from "@/components/Card";
+import { Button, Shell } from "@/components/Atoms";
 import { loadBaseline, loadQuestions } from "@/lib/storage";
 import type { GeneratedQuestion, Section } from "@/lib/types";
 

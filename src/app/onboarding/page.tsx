@@ -1,15 +1,9 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import {
-  Button,
-  Card,
-  Input,
-  Select,
-  Shell,
-  Toggle,
-  TopNav,
-} from "@/components/ui";
+import { Card } from "@/components/Card";
+import { Button, Input, Select, Shell, Toggle } from "@/components/Atoms";
+import { TopNav } from "@/components/TopNav";
 import { loadProfile, saveProfile } from "@/lib/storage";
 import type { UserProfile } from "@/lib/types";
 import { useRouter } from "next/navigation";
@@ -55,7 +49,7 @@ export default function OnboardingPage() {
         <Card>
           <div className="text-sm font-semibold">Study schedule</div>
           <div className="mt-1 text-sm text-muted">
-            Used to size your daily queue.
+            Helps us suggest a realistic amount per day.
           </div>
 
           <div className="mt-4 grid grid-cols-2 gap-3">

@@ -2,7 +2,9 @@
 
 import { useMemo } from "react";
 import Link from "next/link";
-import { Button, Card, Shell, TopNav } from "@/components/ui";
+import { TopNav } from "@/components/TopNav";
+import { Card } from "@/components/Card";
+import { Button, Shell } from "@/components/Atoms";
 import { loadProfile } from "@/lib/storage";
 
 export default function PlanPage() {
