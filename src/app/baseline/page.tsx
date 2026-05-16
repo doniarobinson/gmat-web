@@ -1,7 +1,9 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { Button, Card, Shell, TopNav } from "@/components/ui";
+import { TopNav } from "@/components/TopNav";
+import { Card } from "@/components/Card";
+import { Button, Shell } from "@/components/Atoms";
 import { baselineBlueprint, generateQuestion } from "@/lib/generate";
 import { loadBaseline, loadQuestions, saveBaseline, saveQuestions } from "@/lib/storage";
 import type { BaselineSession, GeneratedQuestion } from "@/lib/types";

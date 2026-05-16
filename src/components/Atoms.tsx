@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { forwardRef } from "react";
 
 export function cx(...classes: Array<string | false | null | undefined>) {
@@ -9,40 +8,6 @@ export function Shell({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen">
       <div className="mx-auto max-w-[1040px] px-6 py-10">{children}</div>
-    </div>
-  );
-}
-
-export function TopNav({
-  title,
-  right,
-}: {
-  title: string;
-  right?: React.ReactNode;
-}) {
-  return (
-    <div className="flex items-center justify-between gap-4">
-      <div>
-        <Link href="/" className="text-sm text-muted hover:text-white">
-          ← Home
-        </Link>
-        <div className="mt-2 text-2xl font-semibold tracking-tight">{title}</div>
-      </div>
-      {right}
-    </div>
-  );
-}
-
-export function Card({
-  children,
-  className,
-}: {
-  children: React.ReactNode;
-  className?: string;
-}) {
-  return (
-    <div className={cx("surface2 rounded-[14px] border p-5", className)}>
-      {children}
     </div>
   );
 }
@@ -90,10 +55,6 @@ export function Select(props: React.SelectHTMLAttributes<HTMLSelectElement>) {
   );
 }
 
-/**
- * iOS-style switch (Tailwind UI “with left label and description” companion).
- * Off: muted pill track, white knob on the left. On: primary track, knob on the right.
- */
 export function Toggle({
   checked,
   onChange,
@@ -126,4 +87,3 @@ export function Toggle({
     </button>
   );
 }
-
