@@ -29,3 +29,6 @@ __pycache__/
 
 # Local planning (not shared)
 docs/ROADMAP.local.md
+
+# Local dev demos (design previews; not committed or deployed)
+src/app/dev/

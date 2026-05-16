@@ -3,11 +3,11 @@
 
 :root {
   color-scheme: dark;
-  /* Theme B — higher-contrast chrome (lifted neutrals, clearer borders) */
-  --bg: 18 26 42;
-  --surface: 26 38 58;
-  --surface2: 30 44 68;
-  --border: 52 68 100;
+  /* Edge definition + deep page (option 3a) */
+  --bg: 14 20 32;
+  --surface: 28 40 62;
+  --surface2: 36 50 76;
+  --border: 68 88 128;
   --text: 248 250 255;
   --text-muted: 198 208 228;
   --text-faint: 158 170 198;
