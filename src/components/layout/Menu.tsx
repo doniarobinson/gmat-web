@@ -6,10 +6,10 @@ import { useCallback, useEffect, useId, useState } from "react";
 import { cx } from "@/components/layout/UtilityAtoms";
 import { Logo } from "@/components/layout/Logo";
 
-const STUDY_HREF = "/onboarding";
+const STUDY_HREF = "/goals";
 
 const STUDY_CHILDREN = [
-  { href: "/onboarding", label: "Your Goals" },
+  { href: "/goals", label: "Your Goals" },
   { href: "/plan", label: "Our Plan" },
 ] as const;
 

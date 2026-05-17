@@ -55,7 +55,7 @@ export default function ResultsPage() {
     <Shell>
       <AppHeader />
       <PageHero
-        title="Assessment results"
+        title="Assessment Results"
         action={{ label: "Generate study plan", href: "/plan" }}
       />
 

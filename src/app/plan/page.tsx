@@ -20,7 +20,7 @@ export default function PlanPage() {
     <Shell>
       <AppHeader />
       <PageHero
-        title="Study plan"
+        title="Our Customized Plan"
         action={{ label: "Start today's session", href: "/practice" }}
       />
 
@@ -67,7 +67,9 @@ export default function PlanPage() {
         </Card>
 
         <Card>
-          <div className="text-sm font-semibold">Today&apos;s queue (example)</div>
+          <div className="text-sm font-semibold">
+            Today&apos;s queue (example)
+          </div>
           <div className="mt-2 text-sm text-muted">
             This will become fully personalized once we compute topic mastery
             from assessment attempts.
