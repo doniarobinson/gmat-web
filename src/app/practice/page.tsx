@@ -2,10 +2,11 @@
 
 import { Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Question } from "@/components/Question";
-import { TopNav } from "@/components/TopNav";
-import { Card } from "@/components/Card";
-import { Button, Shell, cx } from "@/components/Atoms";
+import { Question } from "@/components/content/Question";
+import { AppHeader } from "@/components/layout/AppHeader";
+import { PageHero } from "@/components/layout/PageHero";
+import { Card } from "@/components/layout/Card";
+import { Button, Shell, cx } from "@/components/layout/UtilityAtoms";
 import { generateQuestion } from "@/lib/generate";
 import {
   loadAssessment,
@@ -21,8 +22,9 @@ export default function PracticePage() {
     <Suspense
       fallback={
         <Shell>
-          <TopNav title="Practice" />
-          <div className="mt-6 text-sm text-muted">Loading…</div>
+          <AppHeader />
+          <PageHero title="Practice" />
+          <div className="mt-8 text-sm text-muted">Loading…</div>
         </Shell>
       }
     >
@@ -76,8 +78,9 @@ function PracticeInner() {
   if (!question) {
     return (
       <Shell>
-        <TopNav title="Practice" />
-        <div className="mt-6 text-sm text-muted">Loading question…</div>
+        <AppHeader />
+        <PageHero title="Practice" />
+        <div className="mt-8 text-sm text-muted">Loading question…</div>
       </Shell>
     );
   }
@@ -124,22 +127,17 @@ function PracticeInner() {
 
   return (
     <Shell>
-      <TopNav
+      <AppHeader />
+      <PageHero
         title={mode === "assessment" ? "Assessment — Question" : "Practice"}
-        right={
-          mode === "assessment" ? (
-            <Button variant="secondary" onClick={() => router.push("/assessment")}>
-              Back
-            </Button>
-          ) : (
-            <Button variant="secondary" onClick={() => router.push("/plan")}>
-              Study plan
-            </Button>
-          )
+        secondaryAction={
+          mode === "assessment"
+            ? { label: "Back", href: "/assessment" }
+            : { label: "Study plan", href: "/plan" }
         }
       />
 
-      <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-[1fr_360px]">
+      <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-[1fr_360px]">
         <Question
           question={question}
           selected={selected}

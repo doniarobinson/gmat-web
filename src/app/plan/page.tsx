@@ -2,9 +2,10 @@
 
 import { useMemo } from "react";
 import Link from "next/link";
-import { TopNav } from "@/components/TopNav";
-import { Card } from "@/components/Card";
-import { Button, Shell } from "@/components/Atoms";
+import { AppHeader } from "@/components/layout/AppHeader";
+import { PageHero } from "@/components/layout/PageHero";
+import { Card } from "@/components/layout/Card";
+import { Button, Shell } from "@/components/layout/UtilityAtoms";
 import { loadProfile } from "@/lib/storage";
 
 export default function PlanPage() {
@@ -17,16 +18,13 @@ export default function PlanPage() {
 
   return (
     <Shell>
-      <TopNav
+      <AppHeader />
+      <PageHero
         title="Study plan"
-        right={
-          <Link href="/practice">
-            <Button>Start today’s session</Button>
-          </Link>
-        }
+        action={{ label: "Start today's session", href: "/practice" }}
       />
 
-      <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2">
+      <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2">
         <Card>
           <div className="text-sm font-semibold">This week (v1)</div>
           <div className="mt-2 text-sm text-muted">
@@ -69,7 +67,7 @@ export default function PlanPage() {
         </Card>
 
         <Card>
-          <div className="text-sm font-semibold">Today’s queue (example)</div>
+          <div className="text-sm font-semibold">Today&apos;s queue (example)</div>
           <div className="mt-2 text-sm text-muted">
             This will become fully personalized once we compute topic mastery
             from assessment attempts.

@@ -2,9 +2,10 @@
 
 import { useMemo } from "react";
 import Link from "next/link";
-import { TopNav } from "@/components/TopNav";
-import { Card } from "@/components/Card";
-import { Button, Shell } from "@/components/Atoms";
+import { AppHeader } from "@/components/layout/AppHeader";
+import { PageHero } from "@/components/layout/PageHero";
+import { Card } from "@/components/layout/Card";
+import { Button, Shell } from "@/components/layout/UtilityAtoms";
 import { loadAssessment, loadQuestions } from "@/lib/storage";
 import type { GeneratedQuestion, Section } from "@/lib/types";
 
@@ -32,8 +33,9 @@ export default function ResultsPage() {
   if (!assessment || assessment.questionIds.length === 0) {
     return (
       <Shell>
-        <TopNav title="Results" />
-        <div className="mt-6 text-sm text-muted">
+        <AppHeader />
+        <PageHero title="Results" />
+        <div className="mt-8 text-sm text-muted">
           No assessment found. Start with the{" "}
           <Link className="text-white underline" href="/assessment">
             assessment
@@ -51,16 +53,13 @@ export default function ResultsPage() {
 
   return (
     <Shell>
-      <TopNav
+      <AppHeader />
+      <PageHero
         title="Assessment results"
-        right={
-          <Link href="/plan">
-            <Button>Generate study plan</Button>
-          </Link>
-        }
+        action={{ label: "Generate study plan", href: "/plan" }}
       />
 
-      <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-3">
+      <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-3">
         <Card>
           <div className="text-sm text-muted">Quant</div>
           <div className="mt-2 text-2xl font-semibold">
@@ -114,7 +113,7 @@ export default function ResultsPage() {
         </Card>
       </div>
 
-      <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2">
+      <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2">
         <Card>
           <div className="text-sm font-semibold">Next steps</div>
           <div className="mt-2 text-sm text-muted">
