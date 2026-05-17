@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
-import { useCallback, useEffect, useId, useState } from "react";
+import { Suspense, useCallback, useEffect, useId, useState } from "react";
 import { cx } from "@/components/layout/UtilityAtoms";
 import { Logo } from "@/components/layout/Logo";
 
@@ -323,8 +323,19 @@ function MobileNavList({
   );
 }
 
-/** Full-width nav bar for md+ viewports. */
-export function DesktopMenuBar() {
+function DesktopMenuBarFallback() {
+  return (
+    <nav
+      className="flex w-full items-center gap-4 border-b border-white/10 pb-3"
+      aria-hidden
+    >
+      <Logo className="shrink-0" />
+      <div className="ml-auto h-8 w-40" />
+    </nav>
+  );
+}
+
+function DesktopMenuBarInner() {
   const pathname = usePathname();
   const mode = useSearchParams().get("mode");
 
@@ -341,8 +352,26 @@ export function DesktopMenuBar() {
   );
 }
 
+/** Full-width nav bar for md+ viewports. */
+export function DesktopMenuBar() {
+  return (
+    <Suspense fallback={<DesktopMenuBarFallback />}>
+      <DesktopMenuBarInner />
+    </Suspense>
+  );
+}
+
+function MobileMenuFallback() {
+  return (
+    <div
+      className="inline-flex h-11 w-11 shrink-0 rounded-xl border border-white/10"
+      aria-hidden
+    />
+  );
+}
+
 /** Hamburger + drawer for mobile only. */
-export function MobileMenu() {
+function MobileMenuInner() {
   const pathname = usePathname();
   const mode = useSearchParams().get("mode");
   const panelId = useId();
@@ -455,3 +484,12 @@ export function MobileMenu() {
     </>
   );
 }
+
+export function MobileMenu() {
+  return (
+    <Suspense fallback={<MobileMenuFallback />}>
+      <MobileMenuInner />
+    </Suspense>
+  );
+}
+
