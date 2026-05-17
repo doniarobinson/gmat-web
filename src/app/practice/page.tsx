@@ -119,7 +119,7 @@ function PracticeInner() {
     if (done >= assessment.questionIds.length) {
       assessment.finishedAt = Date.now();
       saveAssessment(assessment);
-      router.push("/results");
+      router.push("/assessment/results");
       return;
     }
     router.push(`/practice?mode=assessment&idx=${done}`);
