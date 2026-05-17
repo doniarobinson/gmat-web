@@ -1,24 +1,26 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useId, useState } from "react";
 import { cx } from "@/components/layout/UtilityAtoms";
 import { Logo } from "@/components/layout/Logo";
 
-const STUDY_HREF = "/goals";
+const STUDY_HREF = "/plan";
 
 const STUDY_CHILDREN = [
   { href: "/goals", label: "Your Goals" },
   { href: "/plan", label: "Our Plan" },
 ] as const;
 
-const TOP_LEVEL_LINKS = [
-  { href: "/", label: "Home" },
-  { href: "/assessment", label: "Assessment" },
-  { href: "/practice", label: "Practice" },
-  { href: "/results", label: "Results" },
+const ASSESSMENT_HREF = "/assessment";
+
+const ASSESSMENT_CHILDREN = [
+  { href: "/assessment", label: "Take Assessment" },
+  { href: "/assessment/results", label: "Results" },
 ] as const;
+
+const AFTER_STUDY_LINKS = [{ href: "/practice", label: "Practice" }] as const;
 
 function isActive(pathname: string, href: string) {
   if (href === "/") return pathname === "/";
@@ -27,6 +29,35 @@ function isActive(pathname: string, href: string) {
 
 function isStudyActive(pathname: string) {
   return STUDY_CHILDREN.some((c) => isActive(pathname, c.href));
+}
+
+function isAssessmentChildActive(
+  pathname: string,
+  mode: string | null,
+  href: string,
+) {
+  if (href === "/assessment") {
+    return (
+      pathname === ASSESSMENT_HREF ||
+      (pathname === "/practice" && mode === "assessment")
+    );
+  }
+  return isActive(pathname, href);
+}
+
+function isAssessmentActive(pathname: string, mode: string | null) {
+  return ASSESSMENT_CHILDREN.some((child) =>
+    isAssessmentChildActive(pathname, mode, child.href),
+  );
+}
+
+function isPracticeActive(pathname: string, mode: string | null) {
+  return isActive(pathname, "/practice") && mode !== "assessment";
+}
+
+function isNavLinkActive(pathname: string, mode: string | null, href: string) {
+  if (href === "/practice") return isPracticeActive(pathname, mode);
+  return isActive(pathname, href);
 }
 
 function NavLink({
@@ -60,22 +91,28 @@ function NavLink({
   );
 }
 
-function StudyNavDesktop({ pathname }: { pathname: string }) {
-  const studyActive = isStudyActive(pathname);
+function AssessmentNavDesktop({
+  pathname,
+  mode,
+}: {
+  pathname: string;
+  mode: string | null;
+}) {
+  const assessmentActive = isAssessmentActive(pathname, mode);
 
   return (
-    <div className="group/study relative">
+    <div className="group/assessment relative">
       <Link
-        href={STUDY_HREF}
-        aria-current={studyActive ? "page" : undefined}
+        href={ASSESSMENT_HREF}
+        aria-current={assessmentActive ? "page" : undefined}
         className={cx(
           "flex min-h-0 items-center gap-1 rounded-xl px-2.5 py-1.5 text-sm font-medium transition",
-          studyActive
+          assessmentActive
             ? "bg-white/10 text-white"
             : "text-muted hover:bg-white/5 hover:text-white",
         )}
       >
-        Study
+        Assess
         <svg
           width="14"
           height="14"
@@ -89,7 +126,87 @@ function StudyNavDesktop({ pathname }: { pathname: string }) {
           <path d="M6 9l6 6 6-6" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       </Link>
-      <div className="absolute left-0 top-full z-50 hidden min-w-[11rem] pt-1 group-hover/study:block group-focus-within/study:block">
+      <div className="absolute left-0 top-full z-50 hidden min-w-[11rem] pt-1 group-hover/assessment:block group-focus-within/assessment:block">
+        <div className="surface2 rounded-xl border py-1 shadow-lg">
+          {ASSESSMENT_CHILDREN.map((child) => (
+            <NavLink
+              key={child.label}
+              href={child.href}
+              label={child.label}
+              active={isAssessmentChildActive(pathname, mode, child.href)}
+              className="min-h-10 w-full rounded-lg px-3 py-2"
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function AssessmentNavMobile({
+  pathname,
+  mode,
+  onNavigate,
+}: {
+  pathname: string;
+  mode: string | null;
+  onNavigate: () => void;
+}) {
+  const assessmentActive = isAssessmentActive(pathname, mode);
+
+  return (
+    <div className="flex flex-col gap-0.5">
+      <NavLink
+        href={ASSESSMENT_HREF}
+        label="Assess"
+        active={assessmentActive}
+        onNavigate={onNavigate}
+        className="w-full px-4"
+      />
+      {ASSESSMENT_CHILDREN.map((child) => (
+        <NavLink
+          key={child.label}
+          href={child.href}
+          label={child.label}
+          active={isAssessmentChildActive(pathname, mode, child.href)}
+          onNavigate={onNavigate}
+          className="w-full pl-8 pr-4"
+        />
+      ))}
+    </div>
+  );
+}
+
+function StudyNavDesktop({ pathname }: { pathname: string }) {
+  const studyActive = isStudyActive(pathname);
+
+  return (
+    <div className="group/plan relative">
+      <Link
+        href={STUDY_HREF}
+        aria-current={studyActive ? "page" : undefined}
+        className={cx(
+          "flex min-h-0 items-center gap-1 rounded-xl px-2.5 py-1.5 text-sm font-medium transition",
+          studyActive
+            ? "bg-white/10 text-white"
+            : "text-muted hover:bg-white/5 hover:text-white",
+        )}
+      >
+        Plan
+        <svg
+          width="14"
+          height="14"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          className="opacity-70"
+          aria-hidden
+        >
+          <path d="M6 9l6 6 6-6" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      </Link>
+      <div className="absolute left-0 top-full z-50 hidden min-w-[11rem] pt-1 group-hover/plan:block group-focus-within/plan:block">
         <div className="surface2 rounded-xl border py-1 shadow-lg">
           {STUDY_CHILDREN.map((child) => (
             <NavLink
@@ -119,7 +236,7 @@ function StudyNavMobile({
     <div className="flex flex-col gap-0.5">
       <NavLink
         href={STUDY_HREF}
-        label="Study"
+        label="Plan"
         active={studyActive}
         onNavigate={onNavigate}
         className="w-full px-4"
@@ -138,7 +255,13 @@ function StudyNavMobile({
   );
 }
 
-function DesktopNavLinks({ pathname }: { pathname: string }) {
+function DesktopNavLinks({
+  pathname,
+  mode,
+}: {
+  pathname: string;
+  mode: string | null;
+}) {
   return (
     <>
       <NavLink
@@ -147,13 +270,14 @@ function DesktopNavLinks({ pathname }: { pathname: string }) {
         active={isActive(pathname, "/")}
         className="min-h-0 px-2.5 py-1.5"
       />
+      <AssessmentNavDesktop pathname={pathname} mode={mode} />
       <StudyNavDesktop pathname={pathname} />
-      {TOP_LEVEL_LINKS.slice(1).map((item) => (
+      {AFTER_STUDY_LINKS.map((item) => (
         <NavLink
           key={item.href}
           href={item.href}
           label={item.label}
-          active={isActive(pathname, item.href)}
+          active={isNavLinkActive(pathname, mode, item.href)}
           className="min-h-0 px-2.5 py-1.5"
         />
       ))}
@@ -163,9 +287,11 @@ function DesktopNavLinks({ pathname }: { pathname: string }) {
 
 function MobileNavList({
   pathname,
+  mode,
   onNavigate,
 }: {
   pathname: string;
+  mode: string | null;
   onNavigate: () => void;
 }) {
   return (
@@ -177,13 +303,18 @@ function MobileNavList({
         onNavigate={onNavigate}
         className="w-full px-4"
       />
+      <AssessmentNavMobile
+        pathname={pathname}
+        mode={mode}
+        onNavigate={onNavigate}
+      />
       <StudyNavMobile pathname={pathname} onNavigate={onNavigate} />
-      {TOP_LEVEL_LINKS.slice(1).map((item) => (
+      {AFTER_STUDY_LINKS.map((item) => (
         <NavLink
           key={item.href}
           href={item.href}
           label={item.label}
-          active={isActive(pathname, item.href)}
+          active={isNavLinkActive(pathname, mode, item.href)}
           onNavigate={onNavigate}
           className="w-full px-4"
         />
@@ -195,6 +326,7 @@ function MobileNavList({
 /** Full-width nav bar for md+ viewports. */
 export function DesktopMenuBar() {
   const pathname = usePathname();
+  const mode = useSearchParams().get("mode");
 
   return (
     <nav
@@ -203,7 +335,7 @@ export function DesktopMenuBar() {
     >
       <Logo className="shrink-0" />
       <div className="ml-auto flex items-center gap-2">
-        <DesktopNavLinks pathname={pathname} />
+        <DesktopNavLinks pathname={pathname} mode={mode} />
       </div>
     </nav>
   );
@@ -212,6 +344,7 @@ export function DesktopMenuBar() {
 /** Hamburger + drawer for mobile only. */
 export function MobileMenu() {
   const pathname = usePathname();
+  const mode = useSearchParams().get("mode");
   const panelId = useId();
   const [open, setOpen] = useState(false);
 
@@ -288,8 +421,7 @@ export function MobileMenu() {
             aria-label="Main navigation"
             className="surface2 fixed inset-y-0 right-0 z-50 flex w-[min(100vw-3rem,20rem)] flex-col border-l shadow-2xl"
           >
-            <div className="flex items-center justify-between border-b px-4 py-3">
-              <span className="text-sm font-semibold">Menu</span>
+            <div className="flex items-center justify-end border-b px-4 py-3">
               <button
                 type="button"
                 className="inline-flex h-11 w-11 items-center justify-center rounded-xl text-muted transition hover:bg-white/5 hover:text-white focus:outline-none focus:ring-2 focus:ring-[rgb(var(--focus-ring))]"
@@ -311,7 +443,11 @@ export function MobileMenu() {
               </button>
             </div>
             <div className="flex flex-1 flex-col gap-1 overflow-y-auto p-3">
-              <MobileNavList pathname={pathname} onNavigate={close} />
+              <MobileNavList
+                pathname={pathname}
+                mode={mode}
+                onNavigate={close}
+              />
             </div>
           </nav>
         </>

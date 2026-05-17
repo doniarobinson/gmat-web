@@ -71,16 +71,19 @@ export default function AssessmentPage() {
     <Shell>
       <AppHeader />
       <PageHero
-        title="Assessment"
-        secondaryAction={{ label: "View results", href: "/results" }}
+        title="Take Assessment"
+        secondaryAction={{ label: "View results", href: "/assessment/results" }}
       />
 
       <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2">
         <Card>
           <div className="text-sm font-semibold">Blueprint</div>
-          <div className="mt-2 text-sm text-muted">
-            30 questions total: 10 Quant, 10 Verbal, 10 Data Insights.
-          </div>
+          <p className="mt-2 text-sm text-muted">30 questions total:</p>
+          <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-muted">
+            <li>10 Quant</li>
+            <li>10 Verbal</li>
+            <li>10 Data Insights</li>
+          </ul>
           <div className="mt-4 text-sm">
             Progress: <span className="font-semibold">{done}</span> / {total}
           </div>
@@ -92,37 +95,39 @@ export default function AssessmentPage() {
             >
               {done === 0 ? "Begin assessment" : "Continue assessment"}
             </Button>
-            <Button
-              variant="secondary"
-              onClick={() => {
-                // restart assessment session by generating a fresh one
-                const s = newAssessment();
-                const specs = assessmentBlueprint();
-                const generated: Record<string, GeneratedQuestion> = {};
-                const ids: string[] = [];
-                for (const spec of specs) {
-                  const q = generateQuestion(spec);
-                  generated[q.id] = q;
-                  ids.push(q.id);
-                }
-                s.questionIds = ids;
-                saveQuestions(generated);
-                saveAssessment(s);
-                setSession(s);
-              }}
-            >
-              Restart
-            </Button>
+            {done > 0 ? (
+              <Button
+                variant="secondary"
+                onClick={() => {
+                  // restart assessment session by generating a fresh one
+                  const s = newAssessment();
+                  const specs = assessmentBlueprint();
+                  const generated: Record<string, GeneratedQuestion> = {};
+                  const ids: string[] = [];
+                  for (const spec of specs) {
+                    const q = generateQuestion(spec);
+                    generated[q.id] = q;
+                    ids.push(q.id);
+                  }
+                  s.questionIds = ids;
+                  saveQuestions(generated);
+                  saveAssessment(s);
+                  setSession(s);
+                }}
+              >
+                Restart
+              </Button>
+            ) : null}
           </div>
         </Card>
 
         <Card>
           <div className="text-sm font-semibold">How it works</div>
-          <ul className="mt-3 space-y-2 text-sm text-muted">
-            <li>• Questions are generated on-demand and stored for review.</li>
+          <ul className="mt-3 list-disc space-y-2 pl-5 text-sm text-muted">
+            <li>Questions are generated on-demand and stored for review.</li>
             <li>
-              • After you submit, review the solution and reveal “Tested
-              concept” if desired.
+              After you submit, review the solution and reveal “Tested concept”
+              if desired.
             </li>
           </ul>
         </Card>

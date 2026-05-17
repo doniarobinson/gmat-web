@@ -53,7 +53,7 @@ Then open [http://localhost:3000](http://localhost:3000). Use **Set your study g
 
 | Path              | Purpose                                                      |
 | ----------------- | ------------------------------------------------------------ |
-| `src/app/`        | Pages: home, goals, assessment, plan, practice, results |
+| `src/app/`        | Pages: home, goals, assessment (+ results), plan, practice |
 | `src/lib/`        | Question generation, types, local session storage            |
 | `src/components/` | Shared UI                                                    |
 | `docs/`           | Product spec, UI style guide, PDF render script for the spec |
