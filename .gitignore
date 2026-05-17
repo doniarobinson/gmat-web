@@ -2,6 +2,7 @@
 
 # Node / Next
 node_modules/
+next-env.d.ts
 .next/
 out/
 dist/
