@@ -11,12 +11,12 @@ A web app that helps users study for the **GMAT Focus** (Quant, Verbal, Data Ins
 
 ## Core user flows
 
-- **Onboarding**
+- **Your goals**
   - Select test date (or “not set”), availability (mins/day), target score (optional)
   - Start assessment
 - **Assessment → Diagnostics**
   - 30-question diagnostic (10 Quant, 10 Verbal, 10 Data Insights)
-  - Results: section performance, top weak topics, speed vs accuracy flags
+  - Results: section performance, top weak topics, speed vs. accuracy flags
 - **Study plan**
   - Weekly schedule + “Today’s session” queue (20–60 min)
   - Mix of targeted drills, mixed review, timed sets, and redo queue
@@ -75,7 +75,7 @@ Subject to:
 ## Key screens (MVP)
 
 - Landing / Sign-in
-- Onboarding
+- Your goals
 - Assessment (with timer + progress)
 - Results Dashboard (section + topic breakdown)
 - Study Plan (weekly + today queue)

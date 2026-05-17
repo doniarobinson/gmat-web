@@ -42,7 +42,7 @@ export default function Home() {
             session. After every answer, review the full solution.
           </>
         }
-        action={{ label: "Set your study goals", href: "/onboarding" }}
+        action={{ label: "Set your study goals", href: "/goals" }}
       />
 
       <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-3">

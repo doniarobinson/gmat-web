@@ -22,7 +22,7 @@ function defaultProfile(): UserProfile {
   };
 }
 
-export default function OnboardingPage() {
+export default function GoalsPage() {
   const router = useRouter();
   const existing = useMemo(() => loadProfile(), []);
   const [profile, setProfile] = useState<UserProfile>(
@@ -33,7 +33,7 @@ export default function OnboardingPage() {
     <Shell>
       <AppHeader />
       <PageHero
-        title="Onboarding"
+        title="Your Goals"
         action={{
           label: "Save & start assessment",
           onClick: () => {
@@ -47,7 +47,7 @@ export default function OnboardingPage() {
         <Card>
           <div className="text-sm font-semibold">Study schedule</div>
           <div className="mt-1 text-sm text-muted">
-            Helps us suggest a realistic amount per day.
+            Helps us suggest how much to study each day.
           </div>
 
           <div className="mt-4 grid grid-cols-2 gap-3">

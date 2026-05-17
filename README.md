@@ -10,7 +10,7 @@ Built with **Next.js** (App Router).
 
 The app helps test-takers prepare for the **GMAT Focus** exam (Quant, Verbal, and Data Insights) with a clear path from diagnosis to daily practice—not a static question bank.
 
-1. **Onboarding** — Set test date (optional), study time per day, and optional target score.
+1. **Your goals** — Set test date (optional), study time per day, and optional target score.
 2. **Assessment** — 30-question diagnostic (10 per section) to estimate strengths, weak topics, and speed vs. accuracy.
 3. **Results** — Section and topic breakdown after the assessment.
 4. **Study plan** — Weekly view and a “today” queue of drills, review, and timed work (planned in the product spec; UI routes exist for plan and practice).
@@ -33,7 +33,7 @@ npm install
 npm run dev:stable
 ```
 
-Then open [http://localhost:3000](http://localhost:3000). Use **Set your study goals** → onboarding, or jump to **Assessment**, **Study plan**, or **Practice** from the home page.
+Then open [http://localhost:3000](http://localhost:3000). Use **Set your study goals** → **Your goals** (`/goals`), or jump to **Assessment**, **Study plan**, or **Practice** from the home page.
 
 `dev:stable` is the default dev command for this app: hot reload on port 3000, localhost only, Turbopack off. Prefer it over `npm run dev` on macOS if you hit dev-server or CSS issues.
 
@@ -53,7 +53,7 @@ Then open [http://localhost:3000](http://localhost:3000). Use **Set your study g
 
 | Path              | Purpose                                                      |
 | ----------------- | ------------------------------------------------------------ |
-| `src/app/`        | Pages: home, onboarding, assessment, plan, practice, results |
+| `src/app/`        | Pages: home, goals, assessment, plan, practice, results |
 | `src/lib/`        | Question generation, types, local session storage            |
 | `src/components/` | Shared UI                                                    |
 | `docs/`           | Product spec, UI style guide, PDF render script for the spec |
