@@ -3,8 +3,8 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useId, useState } from "react";
-import { cx } from "@/components/Atoms";
-import { Logo } from "@/components/Logo";
+import { cx } from "@/components/layout/UtilityAtoms";
+import { Logo } from "@/components/layout/Logo";
 
 const STUDY_HREF = "/onboarding";
 

@@ -1,9 +1,10 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { HomeHeader } from "@/components/HomeHeader";
-import { Card } from "@/components/Card";
-import { Button, Shell } from "@/components/Atoms";
+import { AppHeader } from "@/components/layout/AppHeader";
+import { PageHero } from "@/components/layout/PageHero";
+import { Card } from "@/components/layout/Card";
+import { Button, Shell } from "@/components/layout/UtilityAtoms";
 import { assessmentBlueprint, generateQuestion } from "@/lib/generate";
 import {
   loadAssessment,
@@ -56,11 +57,9 @@ export default function AssessmentPage() {
   if (!session) {
     return (
       <Shell>
-        <HomeHeader />
-        <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
-          <h1 className="text-3xl font-semibold tracking-tight">Assessment</h1>
-        </div>
-        <p className="mt-6 text-sm text-muted">Preparing your assessment…</p>
+        <AppHeader />
+        <PageHero title="Assessment" />
+        <p className="mt-8 text-sm text-muted">Preparing your assessment…</p>
       </Shell>
     );
   }
@@ -70,19 +69,11 @@ export default function AssessmentPage() {
 
   return (
     <Shell>
-      <HomeHeader />
-      <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
-        <h1 className="text-3xl font-semibold tracking-tight">Assessment</h1>
-        <Button
-          variant="secondary"
-          className="shrink-0"
-          onClick={() => {
-            router.push("/results");
-          }}
-        >
-          View results
-        </Button>
-      </div>
+      <AppHeader />
+      <PageHero
+        title="Assessment"
+        secondaryAction={{ label: "View results", href: "/results" }}
+      />
 
       <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2">
         <Card>

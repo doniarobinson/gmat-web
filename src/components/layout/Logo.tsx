@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { cx } from "@/components/Atoms";
+import { cx } from "@/components/layout/UtilityAtoms";
 
 export function Logo({ className }: { className?: string }) {
   return (

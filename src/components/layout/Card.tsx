@@ -1,4 +1,4 @@
-import { cx } from "@/components/Atoms";
+import { cx } from "@/components/layout/UtilityAtoms";
 
 export function Card({
   children,

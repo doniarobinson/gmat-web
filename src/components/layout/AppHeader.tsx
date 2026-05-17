@@ -1,8 +1,8 @@
 "use client";
 
-import { DesktopMenuBar, MobileMenu } from "@/components/AppMenu";
+import { DesktopMenuBar, MobileMenu } from "@/components/layout/Menu";
 
-export function HomeHeader() {
+export function AppHeader() {
   return (
     <header className="mb-8">
       <div className="flex justify-end md:hidden">

@@ -1,8 +1,8 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { Card } from "@/components/Card";
-import { Button, cx } from "@/components/Atoms";
+import { Card } from "@/components/layout/Card";
+import { Button, cx } from "@/components/layout/UtilityAtoms";
 import type { GeneratedQuestion } from "@/lib/types";
 
 function sectionColorVar(section: GeneratedQuestion["section"]) {

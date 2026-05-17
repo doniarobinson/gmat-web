@@ -1,9 +1,10 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { Card } from "@/components/Card";
-import { HomeHeader } from "@/components/HomeHeader";
-import { Button, Input, Select, Shell, Toggle } from "@/components/Atoms";
+import { Card } from "@/components/layout/Card";
+import { AppHeader } from "@/components/layout/AppHeader";
+import { PageHero } from "@/components/layout/PageHero";
+import { Button, Input, Select, Shell, Toggle } from "@/components/layout/UtilityAtoms";
 import { loadProfile, saveProfile } from "@/lib/storage";
 import type { UserProfile } from "@/lib/types";
 import { useRouter } from "next/navigation";
@@ -30,19 +31,17 @@ export default function OnboardingPage() {
 
   return (
     <Shell>
-      <HomeHeader />
-      <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
-        <h1 className="text-3xl font-semibold tracking-tight">Onboarding</h1>
-        <Button
-          className="shrink-0"
-          onClick={() => {
+      <AppHeader />
+      <PageHero
+        title="Onboarding"
+        action={{
+          label: "Save & start assessment",
+          onClick: () => {
             saveProfile(profile);
             router.push("/assessment");
-          }}
-        >
-          Save & start assessment
-        </Button>
-      </div>
+          },
+        }}
+      />
 
       <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2">
         <Card>
@@ -150,16 +149,6 @@ export default function OnboardingPage() {
         </Card>
       </div>
 
-      <div className="mt-6 flex justify-end">
-        <Button
-          onClick={() => {
-            saveProfile(profile);
-            router.push("/assessment");
-          }}
-        >
-          Save & start assessment
-        </Button>
-      </div>
     </Shell>
   );
 }
