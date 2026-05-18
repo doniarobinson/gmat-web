@@ -8,6 +8,9 @@ export function mulberry32(seed: number) {
 }
 
 export function pickOne<T>(rng: () => number, items: T[]): T {
+  if (items.length === 0) {
+    throw new Error("pickOne: items must not be empty");
+  }
   return items[Math.floor(rng() * items.length)]!;
 }
 
