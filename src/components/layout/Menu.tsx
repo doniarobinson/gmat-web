@@ -5,6 +5,14 @@ import { usePathname, useSearchParams } from "next/navigation";
 import { Suspense, useCallback, useEffect, useId, useState } from "react";
 import { cx } from "@/components/layout/UtilityAtoms";
 import { Logo } from "@/components/layout/Logo";
+import {
+  ASSESSMENT_HREF,
+  isActive,
+  isAssessmentActive,
+  isAssessmentChildActive,
+  isNavLinkActive,
+  isStudyActive,
+} from "@/lib/navActive";
 
 const STUDY_HREF = "/plan";
 
@@ -13,52 +21,12 @@ const STUDY_CHILDREN = [
   { href: "/plan", label: "Our Plan" },
 ] as const;
 
-const ASSESSMENT_HREF = "/assessment";
-
 const ASSESSMENT_CHILDREN = [
   { href: "/assessment", label: "Take Assessment" },
   { href: "/assessment/results", label: "Results" },
 ] as const;
 
 const AFTER_STUDY_LINKS = [{ href: "/practice", label: "Practice" }] as const;
-
-function isActive(pathname: string, href: string) {
-  if (href === "/") return pathname === "/";
-  return pathname === href || pathname.startsWith(`${href}/`);
-}
-
-function isStudyActive(pathname: string) {
-  return STUDY_CHILDREN.some((c) => isActive(pathname, c.href));
-}
-
-function isAssessmentChildActive(
-  pathname: string,
-  mode: string | null,
-  href: string,
-) {
-  if (href === "/assessment") {
-    return (
-      pathname === ASSESSMENT_HREF ||
-      (pathname === "/practice" && mode === "assessment")
-    );
-  }
-  return isActive(pathname, href);
-}
-
-function isAssessmentActive(pathname: string, mode: string | null) {
-  return ASSESSMENT_CHILDREN.some((child) =>
-    isAssessmentChildActive(pathname, mode, child.href),
-  );
-}
-
-function isPracticeActive(pathname: string, mode: string | null) {
-  return isActive(pathname, "/practice") && mode !== "assessment";
-}
-
-function isNavLinkActive(pathname: string, mode: string | null, href: string) {
-  if (href === "/practice") return isPracticeActive(pathname, mode);
-  return isActive(pathname, href);
-}
 
 function NavLink({
   href,
