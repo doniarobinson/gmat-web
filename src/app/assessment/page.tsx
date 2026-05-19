@@ -5,6 +5,12 @@ import { AppHeader } from "@/components/layout/AppHeader";
 import { PageHero } from "@/components/layout/PageHero";
 import { Card } from "@/components/layout/Card";
 import { Button, Shell } from "@/components/layout/UtilityAtoms";
+import {
+  assessmentContinueIndex,
+  assessmentPrimaryButtonLabel,
+  getCompletedQuestionCount,
+  shouldShowAssessmentRestart,
+} from "@/lib/assessmentUi";
 import { assessmentBlueprint, generateQuestion } from "@/lib/generate";
 import {
   loadAssessment,
@@ -64,7 +70,7 @@ export default function AssessmentPage() {
     );
   }
 
-  const done = Object.keys(session.attempts).length;
+  const completedQuestionCount = getCompletedQuestionCount(session);
   const total = session.questionIds.length;
 
   return (
@@ -85,17 +91,19 @@ export default function AssessmentPage() {
             <li>10 Data Insights</li>
           </ul>
           <div className="mt-4 text-sm">
-            Progress: <span className="font-semibold">{done}</span> / {total}
+            Progress: <span className="font-semibold">{completedQuestionCount}</span> / {total}
           </div>
           <div className="mt-4 flex gap-2">
             <Button
               onClick={() =>
-                router.push(`/practice?mode=assessment&idx=${done}`)
+                router.push(
+                  `/practice?mode=assessment&idx=${assessmentContinueIndex(completedQuestionCount)}`,
+                )
               }
             >
-              {done === 0 ? "Begin assessment" : "Continue assessment"}
+              {assessmentPrimaryButtonLabel(completedQuestionCount)}
             </Button>
-            {done > 0 ? (
+            {shouldShowAssessmentRestart(completedQuestionCount) ? (
               <Button
                 variant="secondary"
                 onClick={() => {
