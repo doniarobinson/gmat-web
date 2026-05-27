@@ -100,8 +100,8 @@ export default function ResultsPage() {
         <Card>
           <div className="text-sm font-semibold">Next steps</div>
           <div className="mt-2 text-sm text-muted">
-            This is a v1 diagnostic. Next we’ll translate misses into a topic-based
-            plan and guided practice queue.
+            This is a v1 diagnostic. Next, we&apos;ll translate misses into a
+            topic-based plan and guided practice queue.
           </div>
           <div className="mt-4 flex gap-2">
             <Link href="/plan">

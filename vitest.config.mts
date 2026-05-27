@@ -11,6 +11,23 @@ export default defineConfig({
     environment: "happy-dom",
     setupFiles: ["./vitest.setup.ts"],
     include: ["src/**/*.{test,spec}.{ts,tsx}"],
+    coverage: {
+      provider: "v8",
+      reporter: ["text", "text-summary"],
+      include: ["src/lib/**/*.ts", "src/components/**/*.{ts,tsx}"],
+      exclude: [
+        "src/**/*.test.{ts,tsx}",
+        "src/**/*.spec.{ts,tsx}",
+        "src/lib/types.ts",
+      ],
+      all: true,
+      thresholds: {
+        statements: 85,
+        branches: 75,
+        functions: 75,
+        lines: 85,
+      },
+    },
   },
   resolve: {
     alias: {

@@ -15,7 +15,7 @@ export function Shell({ children }: { children: React.ReactNode }) {
 export const Button = forwardRef<
   HTMLButtonElement,
   React.ButtonHTMLAttributes<HTMLButtonElement> & {
-    variant?: "primary" | "secondary" | "danger";
+    variant?: "primary" | "secondary";
   }
 >(function Button({ className, variant = "primary", ...props }, ref) {
   const base =
@@ -23,9 +23,7 @@ export const Button = forwardRef<
   const styles =
     variant === "primary"
       ? "bg-[rgb(var(--primary))] text-white hover:bg-[rgb(var(--primary-hover))]"
-      : variant === "danger"
-        ? "bg-[rgb(var(--danger))] text-white hover:bg-[rgb(var(--danger))]/90"
-        : "border bg-transparent text-white hover:bg-white/5";
+      : "border bg-transparent text-white hover:bg-white/5";
   return (
     <button ref={ref} className={cx(base, styles, className)} {...props} />
   );

@@ -134,8 +134,9 @@ export default function AssessmentPage() {
           <ul className="mt-3 list-disc space-y-2 pl-5 text-sm text-muted">
             <li>Questions are generated on-demand and stored for review.</li>
             <li>
-              After you submit, review the solution and reveal “Tested concept”
-              if desired.
+              After you submit, see whether you were correct and expand the
+              explanation when you&apos;re ready. You can reveal the tested concept
+              anytime.
             </li>
           </ul>
         </Card>

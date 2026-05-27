@@ -55,7 +55,7 @@ export function Question({
             <div className="text-sm text-muted">•</div>
             <div className="text-sm text-muted">{question.difficulty}</div>
           </div>
-          {/* <div className="text-sm text-muted">{question.type}</div> */}
+          {/* question type omitted in v1 UI */}
         </div>
         <div className="mt-4 overflow-hidden rounded-xl border text-sm">
           <button
