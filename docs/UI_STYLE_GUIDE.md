@@ -84,4 +84,4 @@ Type scale (suggested):
 ## Motion
 - 150–220ms transitions
 - opacity + translateY(1–2px) + subtle scale (1.01) for hover
-- no bounce/easing theatrics; use `ease-out`
+- No bounce/easing theatrics; use `ease-out`

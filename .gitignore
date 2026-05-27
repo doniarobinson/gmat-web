@@ -8,6 +8,7 @@ out/
 dist/
 .turbo/
 .vercel/
+coverage/
 *.log
 
 # Env / secrets

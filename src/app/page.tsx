@@ -39,7 +39,8 @@ export default function Home() {
           <>
             Start with a short assessment to see where you stand. You&apos;ll get
             a personalized study plan, then practice with fresh questions each
-            session. After every answer, review the full solution.
+            session. After each answer, check your result and open the explanation
+            when you&apos;re ready.
           </>
         }
         action={{ label: "Set your study goals", href: "/goals" }}

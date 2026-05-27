@@ -18,7 +18,7 @@ The app helps test-takers prepare for the **GMAT Focus** exam (Quant, Verbal, an
 
 Question content is meant to be **generated on-demand** (Quant templates, Verbal prompts, Data Insights datasets) and validated for a single correct answer before you see it. Served questions can be stored locally for review and redo (see `src/lib/storage.ts`, `src/lib/generate.ts`).
 
-For the full product vision, data model, and roadmap, see `[docs/gmat-study-app-spec.md](docs/gmat-study-app-spec.md)`.
+For the full product vision, data model, and roadmap, see [docs/gmat-study-app-spec.md](docs/gmat-study-app-spec.md).
 
 ## Who it’s for
 
@@ -56,10 +56,10 @@ Then open [http://localhost:3000](http://localhost:3000). Use **Set your study g
 | `src/app/`        | Pages: home, goals, assessment (+ results), plan, practice |
 | `src/lib/`        | Question generation, types, local session storage            |
 | `src/components/` | Shared UI                                                    |
-| `docs/`           | Product spec, UI style guide, PDF render script for the spec |
+| `docs/`           | Product spec and UI style guide                              |
 
 
-UI conventions: `[docs/UI_STYLE_GUIDE.md](docs/UI_STYLE_GUIDE.md)`.
+UI conventions: [docs/UI_STYLE_GUIDE.md](docs/UI_STYLE_GUIDE.md).
 
 ## Status
 

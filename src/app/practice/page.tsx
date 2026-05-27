@@ -170,16 +170,22 @@ function PracticeInner() {
           <div className="mt-4">
             <div className="text-sm text-muted">Confidence</div>
             <div className="mt-2 flex gap-2">
-              {(["low", "med", "high"] as const).map((v) => (
+              {(
+                [
+                  ["low", "Low"],
+                  ["med", "Medium"],
+                  ["high", "High"],
+                ] as const
+              ).map(([value, label]) => (
                 <button
-                  key={v}
+                  key={value}
                   className={cx(
                     "rounded-full border px-3 py-1 text-sm hover:bg-white/5",
-                    confidence === v && "border-white/30 bg-white/5",
+                    confidence === value && "border-white/30 bg-white/5",
                   )}
-                  onClick={() => setConfidence(v)}
+                  onClick={() => setConfidence(value)}
                 >
-                  {v}
+                  {label}
                 </button>
               ))}
             </div>

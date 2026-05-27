@@ -74,14 +74,14 @@ function generateQuant(input: Spec & { rng: () => number; difficulty: Difficulty
       type: "QuantMCQ",
       difficulty,
       topicPrimary: topic || "Quant/Arithmetic/Percent",
-      stem: `A value of ${base} is ${pct}% ${change}d. What is the new value?`,
+      stem: `A value of ${base} is ${change === "increase" ? "increased" : "decreased"} by ${pct}%. What is the new value?`,
       choices,
       correctIndex,
       testedConceptLabel: "Percent change",
       solution: {
         steps: [
-          `Percent ${change} means multiply by ${change === "increase" ? `1 + ${pct}/100` : `1 - ${pct}/100`}.`,
-          `${base} × ${change === "increase" ? `1.${pct}` : `0.${String(100 - pct)}`} ≈ ${rounded}.`,
+          `A ${pct}% ${change} means multiply by ${change === "increase" ? `1 + ${pct}/100` : `1 - ${pct}/100`}.`,
+          `${base} × ${change === "increase" ? (1 + pct / 100).toFixed(2) : (1 - pct / 100).toFixed(2)} = ${rounded}.`,
         ],
         final: `The new value is ${rounded}.`,
       },
