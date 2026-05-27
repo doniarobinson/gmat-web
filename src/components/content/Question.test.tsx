@@ -73,16 +73,26 @@ describe("Question", () => {
     expect(onSubmit).toHaveBeenCalledOnce();
   });
 
-  it("shows solution and after-submit content when submitted", () => {
+  it("shows correct result, hidden explanation, and next after submit", () => {
     const { root } = renderQuestion({
       submitted: true,
       selected: 1,
       afterSubmitAction: <button type="button">Next</button>,
     });
-    expect(root.getByText("Solution")).toBeInTheDocument();
-    expect(root.getByText("Add 2 and 2.")).toBeInTheDocument();
+    const resultLine = root.getByText("Correct:").parentElement;
+    expect(resultLine).toHaveTextContent("Correct: 4");
+    expect(root.getByRole("button", { name: /Explanation/i })).toBeInTheDocument();
+    expect(root.queryByText("Add 2 and 2.")).not.toBeInTheDocument();
     expect(root.getByRole("button", { name: "Next" })).toBeInTheDocument();
     expect(root.queryByRole("button", { name: "Submit" })).not.toBeInTheDocument();
+
+    fireEvent.click(root.getByRole("button", { name: /Explanation/i }));
+    expect(root.getByText("Add 2 and 2.")).toBeInTheDocument();
+  });
+
+  it('shows "Incorrect:" when the wrong choice was submitted', () => {
+    const { root } = renderQuestion({ submitted: true, selected: 0 });
+    expect(root.getByText("Incorrect:").parentElement).toHaveTextContent("Incorrect: 4");
   });
 
   it("toggles tested concept visibility", () => {
