@@ -1,6 +1,6 @@
 "use client";
 
-import type { ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { Card } from "@/components/layout/Card";
 import { Button, cx } from "@/components/layout/UtilityAtoms";
 import type { GeneratedQuestion } from "@/lib/types";
@@ -33,20 +33,46 @@ export function Question({
   afterSubmitAction,
 }: QuestionProps) {
   const accent = sectionColorVar(question.section);
+  const [explanationShown, setExplanationShown] = useState(false);
+
+  useEffect(() => {
+    setExplanationShown(false);
+  }, [question.id]);
+
+  const isCorrect = selected === question.correctIndex;
+  const resultLabel = isCorrect ? "Correct:" : "Incorrect:";
 
   return (
     <Card className="p-0">
-      <div className="flex items-center justify-between gap-4 border-b px-5 py-4">
-        <div className="flex items-center gap-2">
-          <span
-            className="h-2 w-2 rounded-full"
-            style={{ background: `rgb(var(${accent}))` }}
-          />
-          <div className="text-sm text-muted">{question.section}</div>
-          <div className="text-sm text-muted">•</div>
-          <div className="text-sm text-muted">{question.difficulty}</div>
+      <div className="border-b px-5 py-4">
+        <div className="flex items-center justify-between gap-4">
+          <div className="flex items-center gap-2">
+            <span
+              className="h-2 w-2 rounded-full"
+              style={{ background: `rgb(var(${accent}))` }}
+            />
+            <div className="text-sm text-muted">{question.section}</div>
+            <div className="text-sm text-muted">•</div>
+            <div className="text-sm text-muted">{question.difficulty}</div>
+          </div>
+          {/* <div className="text-sm text-muted">{question.type}</div> */}
         </div>
-        {/* <div className="text-sm text-muted">{question.type}</div> */}
+        <div className="mt-4 overflow-hidden rounded-xl border text-sm">
+          <button
+            type="button"
+            className="flex w-full items-center justify-between px-3 py-2 hover:bg-white/5"
+            onClick={onToggleTestedShown}
+            aria-expanded={testedShown}
+          >
+            <div className="font-semibold">Tested concept</div>
+            <div className="text-muted">{testedShown ? "Hide" : "Show"}</div>
+          </button>
+          {testedShown ? (
+            <div className="border-t px-3 py-3 font-semibold leading-6">
+              {question.testedConceptLabel}
+            </div>
+          ) : null}
+        </div>
       </div>
 
       <div className="px-5 py-5">
@@ -77,13 +103,8 @@ export function Question({
           })}
         </div>
 
-        <div
-          className={cx(
-            "mt-5 flex items-center gap-3",
-            submitted ? "justify-between" : "",
-          )}
-        >
-          {!submitted ? (
+        {!submitted ? (
+          <div className="mt-5 flex items-center gap-3">
             <Button
               onClick={onSubmit}
               disabled={selected === null}
@@ -91,52 +112,36 @@ export function Question({
             >
               Submit
             </Button>
-          ) : (
-            <>
-              {afterSubmitAction}
-              <LinkRow questionId={question.id} />
-            </>
-          )}
-        </div>
-
-        <div className="mt-6 border-t pt-4">
-          <div className="overflow-hidden rounded-xl border text-sm">
-            <button
-              type="button"
-              className="flex w-full items-center justify-between px-3 py-2 hover:bg-white/5"
-              onClick={onToggleTestedShown}
-              aria-expanded={testedShown}
-            >
-              <div className="font-semibold">Tested concept</div>
-              <div className="text-muted">{testedShown ? "Hide" : "Show"}</div>
-            </button>
-            {testedShown ? (
-              <div className="border-t px-3 py-3 font-semibold leading-6">
-                {question.testedConceptLabel}
-              </div>
-            ) : null}
           </div>
-        </div>
-        {submitted ? (
-          <div className="mt-6 border-t pt-4">
-            <div className="text-sm font-semibold">Solution</div>
-            <ol className="mt-2 list-decimal space-y-1 pl-5 text-sm text-muted">
-              {question.solution.steps.map((s, i) => (
-                <li key={i}>{s}</li>
-              ))}
-            </ol>
-            <div className="mt-3 text-sm">{question.solution.final}</div>
-          </div>
-        ) : null}
+        ) : (
+          <>
+            <div className="mt-5 text-sm">
+              <span className="font-semibold">{resultLabel}</span> {question.solution.final}
+            </div>
+            <div className="mt-5 overflow-hidden rounded-xl border text-sm">
+              <button
+                type="button"
+                className="flex w-full items-center justify-between px-3 py-2 hover:bg-white/5"
+                onClick={() => setExplanationShown((shown) => !shown)}
+                aria-expanded={explanationShown}
+              >
+                <div className="font-semibold">Explanation</div>
+                <div className="text-muted">{explanationShown ? "Hide" : "Show"}</div>
+              </button>
+              {explanationShown ? (
+                <div className="border-t px-3 py-3">
+                  <ol className="list-decimal space-y-1 pl-5 text-sm text-muted">
+                    {question.solution.steps.map((s, i) => (
+                      <li key={i}>{s}</li>
+                    ))}
+                  </ol>
+                </div>
+              ) : null}
+            </div>
+            <div className="mt-5 flex items-center gap-3">{afterSubmitAction}</div>
+          </>
+        )}
       </div>
     </Card>
-  );
-}
-
-function LinkRow({ questionId }: { questionId: string }) {
-  return (
-    <div className="text-sm text-muted">
-      Saved as <span className="font-mono text-white/90">{questionId}</span>
-    </div>
   );
 }
